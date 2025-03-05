@@ -5,6 +5,17 @@
 const express = require("express");
 const app = express();
 
+// a middleware is a function that has access to the request and response object
+// you can think of a middleware as a layer that sits between the request and response objects
+function customMiddleware(req, res, next) {
+  console.log("Middleware function called");
+  // next is a function that is called to move to the next middleware function
+  next();
+}
+
+// use the middleware function
+app.use(customMiddleware);
+
 // localhost:3000/
 app.get("/", function (req, res) {
   res.send("Hello World");
