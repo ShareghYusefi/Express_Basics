@@ -16,6 +16,15 @@ function customMiddleware(req, res, next) {
 // use the middleware function
 app.use(customMiddleware);
 
+// use built in misddle to parse the body of the request
+// urlencoded is a function that is used to parse the body of the request so we have access to data in object form
+// extended: true is used to parse nested objects
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
 // What is a Restful API?
 // Restful stands for Representational State Transfer.
 // API stands for Application Programming Interface.
@@ -46,12 +55,14 @@ const users = [
   { id: 3, username: "JasonSmith", email: "JasonSmith@gmail.com" },
 ];
 
+// Get method to get all users
 // localhost:3000/users
 app.get("/users", function (req, res) {
   // Mock get data from a database
   res.status(200).send(users);
 });
 
+// Get method to get a single user
 // localhost:3000/users/1
 app.get("/users/:id", function (req, res) {
   // we can get id from query paramaters (query parameters are sent through the URL)
@@ -66,6 +77,21 @@ app.get("/users/:id", function (req, res) {
 
   // if the user is found
   res.status(200).send(user);
+});
+
+// Post method to create a new user
+// localhost:3000/users
+app.post("/users", function (req, res) {
+  let newUser = {
+    id: users.length + 1,
+    username: req.body.username,
+    email: req.body.email,
+  };
+
+  // add the user to users array/database
+  users.push(newUser);
+  // send the new user back to the client with a status code of 201
+  res.status(201).send(newUser);
 });
 
 app.listen(3000, () => {
