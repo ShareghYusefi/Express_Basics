@@ -3,7 +3,12 @@
 
 // import of express module/function
 const express = require("express");
+// cors is a middleware that allows us to make requests to our server from a different domain
+var cors = require("cors");
 const app = express();
+
+// use the cors middleware
+app.use(cors());
 
 // a middleware is a function that has access to the request and response object
 // you can think of a middleware as a layer that sits between the request and response objects
