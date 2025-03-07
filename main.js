@@ -94,6 +94,26 @@ app.post("/users", function (req, res) {
   res.status(201).send(newUser);
 });
 
+// Patch method to update a user
+// localhost:3000/users/1
+app.patch("/users/:id", function (req, res) {
+  // we can get id from query paramaters (query parameters are sent through the URL)
+  let id = parseInt(req.params.id); // convert string to integer
+  // find the user with the id
+  let user = users.find((u) => u.id === id); // (u) => { return u.id === id }  <=====>  (u) => u.id === id
+  // if the use is not found
+  if (!user) {
+    res.status(404).send("User not found");
+    return; // return to stop the function here
+  }
+  // update the user
+  user.username = req.body.username;
+  user.email = req.body.email;
+
+  // if the user is found
+  res.status(200).send(user);
+});
+
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
