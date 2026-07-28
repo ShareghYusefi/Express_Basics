@@ -18,7 +18,13 @@ const http = require("node:http");
 // 3. path: use to work with file paths.
 const path = require("node:path");
 console.log(path.parse(__filename));
+// Third Party modules
 // 4. os: get information about the operating system.
+const osPaths = require("os-paths/cjs");
+const home = osPaths.home();
+const temp = osPaths.temp();
+console.log(home);
+console.log(temp);
 
 var menu = [
   { id: 1, name: "Turkish Coffee", price: 3 },
