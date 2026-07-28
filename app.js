@@ -6,8 +6,15 @@ const http = require("node:http");
 const server = http.createServer(
   // Callback Arrow function (similar to anonymous functions)
   (req, res) => {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello World!");
+    res.writeHead(200, { "Content-Type": "text/html" });
+    // check the url
+    if (req.url === "/") {
+      res.end("<h1>Home Page</h1><p>Welcome to our website!</p>");
+    } else if (req.url === "/about") {
+      res.end("<h1>About Page</h1><p>This site was built with Node.js</p>");
+    } else {
+      res.end("<h1>Page Not Found!</h1>");
+    }
   },
 );
 
