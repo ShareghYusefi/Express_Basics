@@ -49,9 +49,20 @@ var menu = [
 
 // What is express?
 // Express is used to create a web server in node. Express works on a middleware concept.
+// A middleware is a function that has access to the request, response, and a next function.
+// You can think of it as a layer that sits between the request and response to a browser.
+function customMiddleware(req, res, next) {
+  console.log("Middleware function called!");
+  // next function is called to move onto the next middleware
+  next();
+}
+
 var express = require("express");
 
 const app = express();
+
+// use the middleware function when a request comes in from the web.
+app.use(customMiddleware);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
