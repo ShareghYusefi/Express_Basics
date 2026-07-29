@@ -124,11 +124,18 @@ app.get("/users/:id", (req, res) => {
   res.status(200).send(user);
 });
 
-app.post("/api/login", (req, res) => {
-  var email = req.body.email;
-  var password = req.body.password;
+// Post to create a user
+app.post("/users", (req, res) => {
+  var newUser = {
+    id: users.length + 1, // assigning the next correct id value
+    username: req.body.username,
+    email: req.body.email,
+  };
 
-  res.json("You have logged in as " + email);
+  // update the mock database/array with new user
+  users.push(newUser);
+
+  res.status(201).send(newUser);
 });
 
 app.listen(3000, () => {
