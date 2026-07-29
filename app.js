@@ -47,30 +47,52 @@ var menu = [
   { id: 3, name: "Iced Latte", price: 5 },
 ];
 
+// What is express?
+// Express is used to create a web server in node. Express works on a middleware concept.
+var express = require("express");
+
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.get("/about", (req, res) => {
+  res.send("About page");
+});
+
+app.get("/api/menu", (req, res) => {
+  res.send(menu);
+});
+
+app.listen(3000, () => {
+  console.log("Server is running on http://localhost:3000");
+});
+
 // Create an HTTP tunneling server
-const server = http.createServer(
-  // Callback Arrow function (similar to anonymous functions)
-  (req, res) => {
-    // check the url
-    if (req.url === "/api/menu") {
-      // log a visit
-      loggerFunction("Request for menu has come in!");
-      res.writeHead(200, { "Content-Type": "application/json" });
-      // JSON.stringify converts arrays and objects to json data format
-      res.end(JSON.stringify(menu));
-    } else {
-      // emit "fire" event
-      myEmitter.emit("fire");
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("<h1>Page Not Found!</h1>");
-    }
-  },
-);
+// const server = http.createServer(
+//   // Callback Arrow function (similar to anonymous functions)
+//   (req, res) => {
+//     // check the url
+//     if (req.url === "/api/menu") {
+//       // log a visit
+//       loggerFunction("Request for menu has come in!");
+//       res.writeHead(200, { "Content-Type": "application/json" });
+//       // JSON.stringify converts arrays and objects to json data format
+//       res.end(JSON.stringify(menu));
+//     } else {
+//       // emit "fire" event
+//       myEmitter.emit("fire");
+//       res.writeHead(200, { "Content-Type": "text/plain" });
+//       res.end("<h1>Page Not Found!</h1>");
+//     }
+//   },
+// );
 
 // start a simple http server locally on port 3000
-server.listen(3000, () => {
-  console.log("Listening on 127.0.0.1:3000");
-});
+// server.listen(3000, () => {
+//   console.log("Listening on 127.0.0.1:3000");
+// });
 
 // Semantic Versioning
 // Majot.Minor.Patch

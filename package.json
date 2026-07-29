@@ -23,7 +23,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "express": "^5.2.1",
     "os-paths": "^7.4.0"
-  },
-  "devDependencies": {}
+  }
 }
