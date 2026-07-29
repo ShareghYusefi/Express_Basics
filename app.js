@@ -71,3 +71,14 @@ const server = http.createServer(
 server.listen(3000, () => {
   console.log("Listening on 127.0.0.1:3000");
 });
+
+// Semantic Versioning
+// Majot.Minor.Patch
+// Caret(^): ^1.2.2 means install the latest version of 1.x.x
+// Tilda(~): ~1.2.2 means install the latest version of 1.2.x
+
+// How can we upate our packages?
+// npm outdated
+// npm update
+// npm install <package>@1.2.2
+// npm install <package>@latest

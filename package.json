@@ -1,5 +1,29 @@
 {
+  "name": "express_basics",
+  "version": "1.0.0",
+  "description": "diving into node and express",
+  "keywords": [
+    "express",
+    "node"
+  ],
+  "homepage": "https://github.com/ShareghYusefi/Express_Basics#readme",
+  "bugs": {
+    "url": "https://github.com/ShareghYusefi/Express_Basics/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShareghYusefi/Express_Basics.git"
+  },
+  "license": "MIT",
+  "author": "Sharegh Yusefi",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
   "dependencies": {
     "os-paths": "^7.4.0"
-  }
+  },
+  "devDependencies": {}
 }
