@@ -41,12 +41,6 @@ myEmitter.on("fire", () => {
   loggerFunction("The application is on fire!");
 });
 
-var menu = [
-  { id: 1, name: "Turkish Coffee", price: 3 },
-  { id: 2, name: "Americano", price: 4 },
-  { id: 3, name: "Iced Latte", price: 5 },
-];
-
 // What is express?
 // Express is used to create a web server in node. Express works on a middleware concept.
 // A middleware is a function that has access to the request, response, and a next function.
@@ -71,16 +65,63 @@ app.use(express.urlencoded({ extended: true }));
 // parse JSON to Javascript Object
 app.use(express.json());
 
+// What is a Restful API?
+// Restful stands for Representational State Transfer
+// API stands for Application Programming Interface
+// A way to design you URL's for resource manipulation
+// example: /pluralResourceName/  OR  /pluralResourceName/:id
+
+// API's use HTTP method for interaction.
+// GET - Get data
+// POST - Send data
+// PATCH - Update data
+// PUT - Override data
+// DELETE - Delete data
+
+// Response contains an HTTP status code.
+// These are codes for representing the type of response from our server.
+// 200 - Success/Ok
+// 201 - Created
+// 404 - Not Found
+// 400 - Bad Request
+// 500 - Internal Server Error
+
+// URL stand for Uniform Resource Locator.
+// Resource is any type of data that we are storing into a database.
+
+var users = [
+  { id: 1, username: "JohnDoe", email: "JohnDoe@gmail.com" },
+  { id: 2, username: "JaneDoe", email: "JaneDoe@gmail.com" },
+  { id: 3, username: "JamesDoe", email: "JamesDoe@gmail.com" },
+];
+
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.get("/about", (req, res) => {
-  res.send("About page");
+// get all users
+app.get("/users", (req, res) => {
+  res.status(200).send(users);
 });
 
-app.get("/api/menu", (req, res) => {
-  res.send(menu);
+// get one users
+app.get("/users/:id", (req, res) => {
+  // We can find the id from the URL query parameters
+  var id = parseInt(req.params.id);
+  // find the user with matching id
+  var user = users.find((u) => {
+    // predicate/check for a record
+    return u.id === id; // true or false
+  });
+
+  // if user is undefined, we return 404
+  if (!user) {
+    res.status(404).send({
+      message: "User not found.",
+    });
+  }
+  // default response
+  res.status(200).send(user);
 });
 
 app.post("/api/login", (req, res) => {
@@ -93,31 +134,6 @@ app.post("/api/login", (req, res) => {
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });
-
-// Create an HTTP tunneling server
-// const server = http.createServer(
-//   // Callback Arrow function (similar to anonymous functions)
-//   (req, res) => {
-//     // check the url
-//     if (req.url === "/api/menu") {
-//       // log a visit
-//       loggerFunction("Request for menu has come in!");
-//       res.writeHead(200, { "Content-Type": "application/json" });
-//       // JSON.stringify converts arrays and objects to json data format
-//       res.end(JSON.stringify(menu));
-//     } else {
-//       // emit "fire" event
-//       myEmitter.emit("fire");
-//       res.writeHead(200, { "Content-Type": "text/plain" });
-//       res.end("<h1>Page Not Found!</h1>");
-//     }
-//   },
-// );
-
-// start a simple http server locally on port 3000
-// server.listen(3000, () => {
-//   console.log("Listening on 127.0.0.1:3000");
-// });
 
 // Semantic Versioning
 // Majot.Minor.Patch
