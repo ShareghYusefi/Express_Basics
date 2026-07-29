@@ -58,11 +58,18 @@ function customMiddleware(req, res, next) {
 }
 
 var express = require("express");
+var cors = require("cors");
 
 const app = express();
 
+// Adds headers: Access-Control-Allow-Origin: *
+app.use(cors());
 // use the middleware function when a request comes in from the web.
 app.use(customMiddleware);
+// parse x-www-form-urlencoded data to Javascript Object
+app.use(express.urlencoded({ extended: true }));
+// parse JSON to Javascript Object
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -74,6 +81,13 @@ app.get("/about", (req, res) => {
 
 app.get("/api/menu", (req, res) => {
   res.send(menu);
+});
+
+app.post("/api/login", (req, res) => {
+  var email = req.body.email;
+  var password = req.body.password;
+
+  res.json("You have logged in as " + email);
 });
 
 app.listen(3000, () => {
