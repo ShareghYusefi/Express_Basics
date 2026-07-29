@@ -31,6 +31,15 @@ var loggerFunction = require("./logger");
 // ./ : current directory
 // ../ : parent directory
 // / : root directory of filesystem
+// events in node js
+const EventEmitter = require("node:events");
+
+var myEmitter = new EventEmitter();
+
+// define the custom event to listen for.
+myEmitter.on("fire", () => {
+  loggerFunction("The application is on fire!");
+});
 
 var menu = [
   { id: 1, name: "Turkish Coffee", price: 3 },
@@ -50,6 +59,8 @@ const server = http.createServer(
       // JSON.stringify converts arrays and objects to json data format
       res.end(JSON.stringify(menu));
     } else {
+      // emit "fire" event
+      myEmitter.emit("fire");
       res.writeHead(200, { "Content-Type": "text/plain" });
       res.end("<h1>Page Not Found!</h1>");
     }
