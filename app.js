@@ -26,6 +26,12 @@ const temp = osPaths.temp();
 console.log(home);
 console.log(temp);
 
+// import logger module
+var loggerFunction = require("./logger");
+// ./ : current directory
+// ../ : parent directory
+// / : root directory of filesystem
+
 var menu = [
   { id: 1, name: "Turkish Coffee", price: 3 },
   { id: 2, name: "Americano", price: 4 },
@@ -38,6 +44,8 @@ const server = http.createServer(
   (req, res) => {
     // check the url
     if (req.url === "/api/menu") {
+      // log a visit
+      loggerFunction("Request for menu has come in!");
       res.writeHead(200, { "Content-Type": "application/json" });
       // JSON.stringify converts arrays and objects to json data format
       res.end(JSON.stringify(menu));
