@@ -163,6 +163,32 @@ app.patch("/users/:id", (req, res) => {
   res.status(200).send(user);
 });
 
+// PUT to override a user record
+app.put("/users/:id", (req, res) => {
+  // We can find the id from the URL query parameters
+  var id = parseInt(req.params.id);
+  // find the user with matching id
+  var user = users.find((u) => {
+    // predicate/check for a record
+    return u.id === id; // true or false
+  });
+
+  // if user is undefined, we return 404
+  if (!user) {
+    res.status(404).send({
+      message: "User not found.",
+    });
+  }
+
+  // update the user that was found
+  user.id = req.body.id;
+  user.username = req.body.username;
+  user.email = req.body.email;
+
+  // default response
+  res.status(200).send(user);
+});
+
 app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
 });
